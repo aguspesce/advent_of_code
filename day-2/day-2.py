@@ -2,8 +2,6 @@
 Script to solve the 2nd Day
 """
 
-import numpy.testing as npt
-
 # task 1
 # A - rock, B - paper, C - scissors
 # X - rock, Y - paper, Z - scissors
@@ -78,15 +76,15 @@ def test_score():
     """
     Check the score function
     """
-    expected_score_1 = [8]
-    expected_score_2 = [4]
+    expected_score_1 = 8
+    expected_score_2 = 4
     game_round = ["A Y"]
     # Calculate the score for the different game strategies
     score_1 = _score(score_task_1, game_score_task_1, game_round[0])
     score_2 = _score(score_task_2, game_score_task_2, game_round[0])
     # Compare with the expected results
-    npt.assert_allclose(score_1, expected_score_1)
-    npt.assert_allclose(score_2, expected_score_2)
+    assert score_1 == expected_score_1
+    assert score_2 == expected_score_2
 
 
 def test_game():
@@ -96,12 +94,10 @@ def test_game():
     expected_score_1 = [8, 1, 6]
     expected_score_2 = [4, 1, 7]
     # Compare the score obtained for a game with the expected result
-    npt.assert_allclose(
-        game("test_input", score_task_1, game_score_task_1), expected_score_1
-    )
-    npt.assert_allclose(
-        game("test_input", score_task_2, game_score_task_2), expected_score_2
-    )
+    score = game("test_input", score_task_1, game_score_task_1)
+    assert score == sum(expected_score_1)
+    score = game("test_input", score_task_2, game_score_task_2)
+    assert score == sum(expected_score_2)
 
 
 if __name__ == "__main__":
