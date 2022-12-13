@@ -2,9 +2,6 @@
 Script to solve the 3th Day
 """
 
-import numpy as np
-import numpy.testing as npt
-
 
 def first_part(fname):
     """
@@ -27,8 +24,8 @@ def first_part(fname):
 
 def second_part(fname):
     """
-    Return a list with the item type that corresponds to the badges of each three-Elf
-    group.
+    Return a list with the item type that corresponds to the badges of
+    each three-Elf group.
     """
     # Read the file
     lines = _read_input(fname)
@@ -95,7 +92,8 @@ def test_find_common_letter():
     """
     expected_letter = "p"
     comp_1, comp_2 = "vJrwpWtwJgWr", "hcsFMMfFFhFp"
-    assert _find_commmon_letter([set(comp_1), set(comp_2)])[0] == expected_letter
+    common_letter = _find_commmon_letter([set(comp_1), set(comp_2)])
+    assert common_letter[0] == expected_letter
 
 
 def test_letter_to_priority():
@@ -105,7 +103,7 @@ def test_letter_to_priority():
     expected_priorities = [1, 26, 27, 52]
     letters = ["a", "z", "A", "Z"]
     for priority, letter in zip(expected_priorities, letters):
-        npt.assert_allclose(_letter_to_priority(letter), priority)
+        assert _letter_to_priority(letter) == priority
 
 
 if __name__ == "__main__":
