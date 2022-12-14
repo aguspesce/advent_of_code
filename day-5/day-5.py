@@ -126,8 +126,8 @@ def _read_input(fname):
 
     Return a list with the assignment pairs.
     """
-    lines = open(fname, "r").read().splitlines()
-    return lines
+    with open(fname, "r") as f:
+        return f.read().splitlines()
 
 
 def test_initial_stacks_arange():
