@@ -59,10 +59,8 @@ def _read_input(fname):
 
     Return a list with the assignment pairs.
     """
-    file = open(fname, "r")
-    lines = file.readlines()
-    file.close()
-    return lines
+    with open(fname, "r") as f:
+        return f.readlines()
 
 
 if __name__ == "__main__":
