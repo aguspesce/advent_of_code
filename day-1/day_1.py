@@ -28,9 +28,7 @@ def first_part(lines):
 
     # Sum each list item to find the total calories for each elf
     # Initialize a empty list to store the total calories
-    sum_calories = []
-    for calories in calories_list:
-        sum_calories.append(sum(calories))
+    sum_calories = [sum(calories) for calories in calories_list]
     return sum_calories
 
 
