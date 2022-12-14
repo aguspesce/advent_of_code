@@ -47,8 +47,8 @@ def _read_input(fname):
 
     Return a list where its elements are strings.
     """
-    lines = open(fname, "r").read().splitlines()
-    return lines
+    with open(fname, "r") as f:
+        return f.read().splitlines()
 
 
 def _get_compartment(line):
