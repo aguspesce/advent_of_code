@@ -1,3 +1,2 @@
-day-1/__pycache__/day_1.cpython-39-pytest-7.2.0.pyc
-day-2/__pycache__/day-2.cpython-39-pytest-7.2.0.pyc
-day-3/__pycache__/day-3.cpython-39-pytest-7.2.0.pyc
+*/__pycache__
+*.pyc
