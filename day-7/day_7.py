@@ -96,7 +96,7 @@ def _process_comand(commands):
             # Get the file size
             file_size = int(command[: command.find(" ")])
             dir = path
-            # Update the size for the directory
+            # Update the size for the parent directory
             for i in range(path.count("/")):
                 dirs[dir] += file_size
                 dir = dir[: dir.rfind("/")]
