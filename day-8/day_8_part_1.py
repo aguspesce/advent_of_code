@@ -110,7 +110,7 @@ if __name__ == "__main__":
     visible_trees = first_part("input")
     # Solve second part
     print(
-        "Answerers:",
+        "Answer:",
         "\n",
         "- First part: ",
         f"{visible_trees}",

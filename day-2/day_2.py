@@ -109,7 +109,7 @@ if __name__ == "__main__":
     your_score_2 = game("input_2", score_task_2, game_score_task_2)
 
     print(
-        "Answerers:",
+        "Answers:",
         "\n",
         "- First part: ",
         f"{your_total_score_1}",

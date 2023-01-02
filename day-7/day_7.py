@@ -166,7 +166,7 @@ if __name__ == "__main__":
     # Solve second part
     smallest_dir = second_part("input")
     print(
-        "Answerers:",
+        "Answers:",
         "\n",
         "- First part: ",
         f"{size_1}",

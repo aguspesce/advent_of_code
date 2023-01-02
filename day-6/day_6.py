@@ -74,7 +74,7 @@ if __name__ == "__main__":
     solution_2 = second_part("input")
 
     print(
-        "Answerers:",
+        "Answers:",
         "\n",
         "- First part: ",
         f"{solution}",

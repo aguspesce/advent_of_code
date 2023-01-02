@@ -87,7 +87,8 @@ if __name__ == "__main__":
     top_calories = second_part(calories_list)
 
     print(
-        "Answerers:",
+        "Answers:",
+        "\n",
         "\n",
         "- First part: ",
         f"{max_calories}",

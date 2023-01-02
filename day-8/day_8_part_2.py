@@ -132,7 +132,7 @@ if __name__ == "__main__":
     max_score = max(scores)
 
     print(
-        "Answerers:",
+        "Answer:",
         "\n",
         "- Second part: ",
         f"{max_score}",
