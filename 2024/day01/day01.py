@@ -21,12 +21,18 @@ def first_part(list_left, list_right):
 
 
 def second_part(list_left, list_right):
-    # Sort the element of the lists
-    list_left = sorted(list_left)
-    list_right = sorted(list_right)
+    # Create a dict to store the count of occurrences of each element in the left list
+    left_dic = {}
+    for ele in list_left:
+        # If the element is not in the dictionary, initialize its count to 1
+        if ele not in left_dic.keys():
+            left_dic[ele] = 1
+        else:
+            # If the element is in the dictionary, increment its count
+            left_dic[ele] += 1
 
-    # Count number of aparitions
-    score = sum(list_right.count(left) * left for left in list_left)
+    # Calculate the score
+    score = sum(list_right.count(left) * left * left_dic[left] for left in left_dic)
 
     return score
 
