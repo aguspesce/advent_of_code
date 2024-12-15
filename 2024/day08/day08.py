@@ -1,5 +1,18 @@
 import itertools
 
+map = [
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", "a", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", "a", ".", ".", ".", "."],
+    [".", ".", ".", "a", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", "A", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+]
+
 
 def read_file(fname):
     """Reads a file containing the grid and returns it as a 2D array."""
@@ -51,34 +64,55 @@ class Grid_map:
             return False
         return True
 
-    def all_antinode(self, antena_key):
+    def all_antinode(self, antena_key, harmonic=False):
         """Computes all antinode for a specific antenna."""
         antinodes = []
         combination = list(itertools.combinations(self.antenas[antena_key], 2))
 
         # Generate antinode pairs for each combination of antenna positions
         for comb in combination:
-            antinode1, antinode2 = self.antinode_pair(comb[0], comb[1])
-            if self.antinode_on_map(antinode1):
-                antinodes.append(antinode1)
-            if self.antinode_on_map(antinode2):
-                antinodes.append(antinode2)
+            if harmonic:
+                antinodes.append(self.harmonic_aninodes(comb[0], comb[1]))
+            else:
+                antinode1, antinode2 = self.antinode_pair(comb[0], comb[1])
+                if self.antinode_on_map(antinode1):
+                    antinodes.append(antinode1)
+                if self.antinode_on_map(antinode2):
+                    antinodes.append(antinode2)
         return antinodes
 
+    def harmonic_aninodes(self, position1, position2):
+        """Return all the antinode in the harmonic position"""
+        row1, col1 = position1[0], position1[1]
+        row2, col2 = position2[0], position2[1]
 
-def test_grid_map():
-    map = [
-        [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-        [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-        [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-        [".", ".", ".", ".", "a", ".", ".", ".", ".", "."],
-        [".", ".", ".", ".", ".", "a", ".", ".", ".", "."],
-        [".", ".", ".", "a", ".", ".", ".", ".", ".", "."],
-        [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-        [".", ".", ".", ".", ".", "A", ".", ".", ".", "."],
-        [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-        [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-    ]
+        dr = row2 - row1
+        dc = col2 - col1
+
+        harmonics = []
+        status = True
+        index = 0
+        while status:
+            antinode = (row1 + index * dr, col1 + index * dc)
+            if self.antinode_on_map(antinode):
+                harmonics.append(antinode)
+            else:
+                status = False
+            index += 1
+
+        status = True
+        index = -1
+        while status:
+            antinode = (row1 + index * dr, col1 + index * dc)
+            if self.antinode_on_map(antinode):
+                harmonics.append(antinode)
+            else:
+                status = False
+            index -= 1
+        return harmonics
+
+
+def test_find_antenas():
     grid = Grid_map(map)
     grid.find_antenas()
     antenas = grid.antenas
@@ -93,6 +127,11 @@ def test_first_part():
     assert first_part(map) == 14
 
 
+def test_second_part():
+    map = read_file("./day08/test")
+    assert second_part(map) == 34
+
+
 def first_part(map):
     grid = Grid_map(map)
     grid.find_antenas()
@@ -100,8 +139,18 @@ def first_part(map):
     antinodes = []
     for key in antenas_keys:
         antinodes.extend(grid.all_antinode(key))
-
     antinodes = set(antinodes)
+    return len(antinodes)
+
+
+def second_part(map):
+    grid = Grid_map(map)
+    grid.find_antenas()
+    antenas_keys = grid.antenas.keys()
+    antinodes = []
+    for key in antenas_keys:
+        antinodes.extend(grid.all_antinode(key, harmonic=True))
+    antinodes = set([item for sublist in antinodes for item in sublist])
     return len(antinodes)
 
 
@@ -109,4 +158,8 @@ if __name__ == "__main__":
     fname = "./day08/input"
     map = read_file(fname)
     value = first_part(map)
+    print(f"unique locations within the bounds of the map contain an antinode: {value}")
+
+    map = read_file(fname)
+    value = second_part(map)
     print(f"unique locations within the bounds of the map contain an antinode: {value}")
